@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+fastmcp>=2.3.0
+sqlalchemy
+pymysql
+python-dotenv
+python-jose[cryptography]
+requests

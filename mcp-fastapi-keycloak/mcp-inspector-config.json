@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "president-mcp": {
+      "url": "http://127.0.0.1:3333/mcp",
+      "transportType": "streamable-http",
+      "auth": {
+        "type": "oauth2",
+        "client_id": "swagger-client",
+        "realm": "mcp-rtn",
+        "keycloak_url": "http://localhost:8080"
+      }
+    }
+  }
+}

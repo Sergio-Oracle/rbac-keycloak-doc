@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Interface - Connexion</title>
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e40af;  /* Bleu foncé */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Effet de fond avec des cercles */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+        }
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -200px;
+        }
+        .login-container {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: #1e40af;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        .logo i {
+            font-size: 40px;
+            color: white;
+        }
+        h1 {
+            color: #1e40af;
+            margin-bottom: 12px;
+            font-size: 32px;
+            font-weight: 700;
+        }
+        p {
+            color: #64748b;
+            margin-bottom: 35px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .btn-login {
+            background: #1e40af;
+            color: white;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        .btn-login:hover {
+            background: #1e3a8a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.4);
+        }
+        .btn-login i {
+            font-size: 18px;
+        }
+        .features {
+            margin-top: 35px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: #64748b;
+            font-size: 14px;
+            text-align: left;
+        }
+        .feature-item i {
+            color: #1e40af;
+            font-size: 18px;
+            width: 24px;
+        }
+        .footer {
+            margin-top: 30px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <i class="fas fa-network-wired"></i>
+        </div>
+        <h1>MCP Interface</h1>
+        <p>Authentifiez-vous avec Keycloak pour accéder aux outils MCP sécurisés</p>
+        <a href="/login" class="btn-login">
+            <i class="fas fa-sign-in-alt"></i>
+            Se connecter avec Keycloak
+        </a>
+        
+        <div class="features">
+            <div class="feature-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Authentification sécurisée OAuth 2.0</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-lock"></i>
+                <span>Gestion des rôles et permissions</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-tools"></i>
+                <span>Accès aux outils MCP en temps réel</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <i class="fas fa-info-circle"></i>
+            Propulsé par FastMCP & Keycloak
+        </div>
+    </div>
+</body>
+</html>

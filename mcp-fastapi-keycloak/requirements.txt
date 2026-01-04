@@ -1,0 +1,17 @@
+# API FastAPI
+fastapi
+uvicorn
+sqlalchemy
+pymysql
+python-dotenv
+python-jose[cryptography]
+requests
+
+# MCP Server
+fastmcp>=2.3.0
+
+# Interface Web Flask
+flask>=2.3.0
+authlib>=1.2.0
+pyjwt>=2.8.0
+cryptography>=41.0.0

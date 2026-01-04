@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Interface - Dashboard</title>
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+        }
+        .navbar {
+            background: #1e40af;  /* Bleu foncé */
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .navbar h1 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .user-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        .user-details i {
+            font-size: 16px;
+        }
+        .roles {
+            background: white;
+            color: #1e40af;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-logout {
+            background: white;
+            color: #1e40af;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-logout:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .tools-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #1e40af;
+            margin-bottom: 25px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tool-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #1e40af;
+            transition: all 0.2s;
+        }
+        .tool-card:hover {
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
+        }
+        .tool-name {
+            font-weight: 600;
+            color: #1e40af;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tool-name i {
+            font-size: 20px;
+        }
+        .tool-description {
+            color: #64748b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tool-description i {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .tool-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        input, select {
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 200px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1e40af;
+        }
+        .btn-execute {
+            background: #1e40af;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-execute:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        .btn-execute:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .result {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            color: #166534;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .error {
+            background: #fef2f2;
+            border-color: #fca5a5;
+            color: #991b1b;
+        }
+        .loading {
+            background: #eff6ff;
+            border-color: #93c5fd;
+            color: #1e40af;
+        }
+        .icon-success {
+            color: #16a34a;
+        }
+        .icon-error {
+            color: #dc2626;
+        }
+        .icon-loading {
+            color: #1e40af;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>
+            <i class="fas fa-network-wired"></i>
+            MCP Interface
+        </h1>
+        <div class="user-info">
+            <div class="user-details">
+                <i class="fas fa-user-circle"></i>
+                <span>{{ username }}</span>
+            </div>
+            <div class="roles">
+                <i class="fas fa-shield-alt"></i>
+                {{ roles|join(', ') }}
+            </div>
+            <a href="/logout" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i>
+                Déconnexion
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tools-section">
+            <h2>
+                <i class="fas fa-tools"></i>
+                Outils MCP disponibles
+            </h2>
+            
+            <!-- List Presidents Tool -->
+            <div class="tool-card">
+                <div class="tool-name">
+                    <i class="fas fa-list-ul"></i>
+                    list_presidents
+                </div>
+                <div class="tool-description">
+                    <i class="fas fa-info-circle"></i>
+                    Liste tous les présidents (nécessite le rôle reader ou admin)
+                </div>
+                <div class="tool-form">
+                    <button class="btn-execute" onclick="callTool('list_presidents', {})" id="btn-list_presidents">
+                        <i class="fas fa-play"></i>
+                        Exécuter
+                    </button>
+                </div>
+                <div id="result-list_presidents" class="result"></div>
+            </div>
+
+            <!-- Create President Tool -->
+            <div class="tool-card">
+                <div class="tool-name">
+                    <i class="fas fa-plus-circle"></i>
+                    create_president
+                </div>
+                <div class="tool-description">
+                    <i class="fas fa-info-circle"></i>
+                    Créer un nouveau président (nécessite le rôle admin)
+                </div>
+                <form class="tool-form" onsubmit="event.preventDefault(); createPresident();">
+                    <input type="number" id="code" placeholder="Code" required>
+                    <input type="text" id="prenom" placeholder="Prénom" required>
+                    <input type="text" id="nom" placeholder="Nom" required>
+                    <input type="number" step="0.01" id="solde" placeholder="Solde" required>
+                    <button type="submit" class="btn-execute" id="btn-create_president">
+                        <i class="fas fa-save"></i>
+                        Créer
+                    </button>
+                </form>
+                <div id="result-create_president" class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function callTool(toolName, args) {
+            const resultDiv = document.getElementById(`result-${toolName}`);
+            const btnElement = document.getElementById(`btn-${toolName}`);
+            
+            // Afficher le loading
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.innerHTML = '<i class="fas fa-spinner icon-loading"></i> Exécution en cours...';
+            
+            if (btnElement) {
+                btnElement.disabled = true;
+                const icon = btnElement.querySelector('i');
+                icon.className = 'fas fa-spinner icon-loading';
+            }
+
+            try {
+                const response = await fetch('/api/call_tool', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        tool_name: toolName,
+                        arguments: args
+                    })
+                });
+
+                const data = await response.json();
+                
+                // Vérifier s'il y a une erreur dans la réponse JSON-RPC
+                if (data.error) {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = '<i class="fas fa-exclamation-triangle icon-error"></i> Erreur:\n' + JSON.stringify(data.error, null, 2);
+                } else if (data.result && data.result.isError) {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = '<i class="fas fa-exclamation-triangle icon-error"></i> Erreur:\n' + JSON.stringify(data.result, null, 2);
+                } else {
+                    resultDiv.className = 'result';
+                    // Extraire le contenu du résultat
+                    const content = data.result?.content?.[0]?.text || data.result;
+                    resultDiv.innerHTML = '<i class="fas fa-check-circle icon-success"></i> Résultat:\n' + JSON.stringify(content, null, 2);
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '<i class="fas fa-exclamation-triangle icon-error"></i> Erreur réseau: ' + error.message;
+            } finally {
+                if (btnElement) {
+                    btnElement.disabled = false;
+                    const icon = btnElement.querySelector('i');
+                    if (toolName === 'list_presidents') {
+                        icon.className = 'fas fa-play';
+                    } else {
+                        icon.className = 'fas fa-save';
+                    }
+                }
+            }
+        }
+
+        function createPresident() {
+            const args = {
+                code: parseInt(document.getElementById('code').value),
+                prenom: document.getElementById('prenom').value,
+                nom: document.getElementById('nom').value,
+                solde: parseFloat(document.getElementById('solde').value)
+            };
+            callTool('create_president', args);
+        }
+    </script>
+</body>
+</html>
